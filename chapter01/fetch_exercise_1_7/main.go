@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"os"
+	"io"
 )
 
 func main() {
@@ -15,14 +15,11 @@ func main() {
 			os.Exit(1)
 		}
 
-		b, err := ioutil.ReadAll(resp.Body)
-		resp.Body.Close()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "fetchL reading %s: %v\n", url, err)
+		if _, err := io.Copy(os.Stdout, resp.Body); err != nil {
+			fmt.Fprintf(os.Stderr, "error: %v \n", err)
 			os.Exit(1)
 		}
-		fmt.Printf("%s", b)
 	}
 }
 
-// go run .\chapter01\fetch\main.go http://gopl.io 
+// go run .\main.go http://gopl.io
