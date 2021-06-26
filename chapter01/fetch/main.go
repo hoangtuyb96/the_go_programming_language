@@ -12,6 +12,7 @@ func main() {
 		resp, err := http.Get(url)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "fetch: %v \n", err)
+			os.Exit(1)
 		}
 
 		b, err := ioutil.ReadAll(resp.Body)
