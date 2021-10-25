@@ -1,3 +1,3 @@
 module github.com/the_go_programming_language
 
-go 1.12
+go 1.17
